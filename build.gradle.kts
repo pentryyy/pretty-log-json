@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     intellijPlatform {
+        // Используем локальную установку JetBrains IDE из папки vendor.
         local(file("vendor").absolutePath)
         testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
     }
