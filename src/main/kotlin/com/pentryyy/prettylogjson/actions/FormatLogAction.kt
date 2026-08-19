@@ -26,46 +26,49 @@ class FormatLogAction : AnAction() {
         }
 
         val lines = textToProcess.lines()
-        val resultLines = mutableListOf<String>()
-
-        for (line in lines) {
-            if (line.isBlank()) {
-                resultLines.add(line)
-                continue
-            }
-
-            val jsonPart = extractJsonFromLine(line)
-            if (jsonPart != null) {
-                try {
-                    val jsonElement = JsonParser.parseString(jsonPart)
-                    val formatted = gson.toJson(jsonElement)
-                    resultLines.add(formatted)
-                } catch (_: Exception) {
-                    resultLines.add(line)
-                }
-            } else {
-                if (!line.startsWith("/entrypoint.sh:")) {
-                    resultLines.add(line)
-                }
-            }
-        }
+        val resultLines = lines.mapNotNull { line -> processLine(line) }
 
         val formattedText = resultLines.joinToString("\n")
-        val document = editor.document
+        val isSelection = !selectedText.isNullOrBlank()
 
-        ApplicationManager.getApplication().runWriteAction {
-            if (selectedText.isNullOrBlank()) {
-                document.setText(formattedText)
-            } else {
-                val start = selectionModel.selectionStart
-                val end = selectionModel.selectionEnd
-                document.replaceString(start, end, formattedText)
-            }
-        }
+        replaceTextInEditor(editor, selectionModel, formattedText, isSelection)
     }
 
     private fun extractJsonFromLine(line: String): String? {
         val startIndex = line.indexOf('{')
         return if (startIndex == -1) null else line.substring(startIndex)
+    }
+
+    private fun processLine(line: String): String? = when {
+        line.isBlank() -> line
+        else -> {
+            val jsonPart = extractJsonFromLine(line)
+            when {
+                jsonPart != null -> try {
+                    gson.toJson(JsonParser.parseString(jsonPart))
+                } catch (_: Exception) {
+                    line
+                }
+                line.startsWith("/entrypoint.sh:") -> null
+                else -> line
+            }
+        }
+    }
+
+    private fun replaceTextInEditor(
+        editor: Editor,
+        selectionModel: SelectionModel,
+        formattedText: String,
+        isSelection: Boolean
+    ) {
+        ApplicationManager.getApplication().runWriteAction {
+            if (isSelection) {
+                val start = selectionModel.selectionStart
+                val end = selectionModel.selectionEnd
+                editor.document.replaceString(start, end, formattedText)
+            } else {
+                editor.document.setText(formattedText)
+            }
+        }
     }
 }
