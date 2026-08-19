@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.pentryyy.pretty-log-json</id>
     <name>Pretty-Log-Json</name>
-    <vendor>YourCompany</vendor>
+    <vendor/>
     <description><![CDATA[
         Форматирует JSON-логи: удаляет строки /entrypoint.sh: и красиво выводит объекты JSON.
     ]]></description>
