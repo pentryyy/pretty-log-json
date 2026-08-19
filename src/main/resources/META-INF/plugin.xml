@@ -11,7 +11,7 @@
     <actions>
         <action id="FormatLogAction" class="com.pentryyy.prettylogjson.actions.FormatLogAction">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift p"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift p"/> <!-- Cmd + Shift + P на Mac OS -->
         </action>
     </actions>
     <resource-bundle>messages.MyMessageBundle</resource-bundle>
