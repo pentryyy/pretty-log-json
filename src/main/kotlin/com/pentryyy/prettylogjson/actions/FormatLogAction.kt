@@ -29,10 +29,6 @@ class FormatLogAction : AnAction() {
         val resultLines = mutableListOf<String>()
 
         for (line in lines) {
-            if (line.startsWith("/entrypoint.sh:")) {
-                continue
-            }
-
             if (line.isBlank()) {
                 resultLines.add(line)
                 continue
@@ -42,18 +38,15 @@ class FormatLogAction : AnAction() {
             if (jsonPart != null) {
                 try {
                     val jsonElement = JsonParser.parseString(jsonPart)
-                    if (jsonElement.isJsonObject) {
-                        val formatted = gson.toJson(jsonElement)
-                        resultLines.add(formatted)
-                    } else {
-                        val formatted = gson.toJson(jsonElement)
-                        resultLines.add(formatted)
-                    }
+                    val formatted = gson.toJson(jsonElement)
+                    resultLines.add(formatted)
                 } catch (_: Exception) {
                     resultLines.add(line)
                 }
             } else {
-                resultLines.add(line)
+                if (!line.startsWith("/entrypoint.sh:")) {
+                    resultLines.add(line)
+                }
             }
         }
 
@@ -71,16 +64,8 @@ class FormatLogAction : AnAction() {
         }
     }
 
-    /**
-     * Извлекает JSON-часть из строки, отбрасывая временную метку в начале.
-     * Возвращает строку, начинающуюся с '{', или null, если не найден JSON.
-     */
     private fun extractJsonFromLine(line: String): String? {
         val startIndex = line.indexOf('{')
-        if (startIndex == -1) {
-            return null
-        }
-
-        return line.substring(startIndex)
+        return if (startIndex == -1) null else line.substring(startIndex)
     }
 }
