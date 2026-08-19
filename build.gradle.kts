@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.pentryyy"
-version = "1.0"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -45,10 +45,4 @@ kotlin {
     compilerOptions {
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
-}
-
-tasks.test {
-    useJUnitPlatform()
-    systemProperty("idea.home.path", file("vendor").absolutePath)
-    systemProperty("grazie.enabled", "false")
 }
