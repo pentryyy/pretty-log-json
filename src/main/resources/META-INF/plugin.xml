@@ -1,0 +1,18 @@
+<idea-plugin>
+    <id>com.pentryyy.pretty-log-json</id>
+    <name>Pretty-Log-Json</name>
+    <vendor>YourCompany</vendor>
+    <description><![CDATA[
+        Форматирует JSON-логи: удаляет строки /entrypoint.sh: и красиво выводит объекты JSON.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <actions>
+        <action id="FormatLogAction" class="com.pentryyy.prettylogjson.actions.FormatLogAction">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift p"/>
+        </action>
+    </actions>
+    <resource-bundle>messages.MyMessageBundle</resource-bundle>
+</idea-plugin>
