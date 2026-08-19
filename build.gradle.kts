@@ -46,3 +46,9 @@ kotlin {
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
+
+tasks.test {
+    useJUnitPlatform()
+    systemProperty("idea.home.path", file("vendor").absolutePath)
+    systemProperty("grazie.enabled", "false")
+}
