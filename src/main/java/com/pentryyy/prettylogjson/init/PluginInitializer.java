@@ -1,4 +1,4 @@
-package com.pentryyy.prettylogjson.utils;
+package com.pentryyy.prettylogjson.init;
 
 import com.intellij.ide.ApplicationInitializedListener;
 import com.intellij.openapi.actionSystem.ActionManager;
@@ -19,6 +19,7 @@ public class PluginInitializer implements ApplicationInitializedListener {
             }
 
             String[] possibleGroupIds = {
+                    "MainToolBar",
                     "MainToolbar",
                     "Toolbar",
                     "EditorToolbar",
@@ -28,17 +29,17 @@ public class PluginInitializer implements ApplicationInitializedListener {
             boolean added = false;
             for (String groupId : possibleGroupIds) {
                 DefaultActionGroup group = (DefaultActionGroup) am.getAction(groupId);
-                if (group != null) {
-                    if (!group.containsAction(formatAction)) {
-                        group.add(formatAction);
-                        System.out.println("Pretty Log JSON: добавлено в группу " + groupId);
-                        added = true;
-                    } else {
-                        System.out.println("Pretty Log JSON: уже есть в группе " + groupId);
-                        added = true;
-                    }
+                if (group == null) {
                     break;
                 }
+                if (!group.containsAction(formatAction)) {
+                    group.add(formatAction);
+                    System.out.println("Pretty Log JSON: добавлено в группу " + groupId);
+                } else {
+                    System.out.println("Pretty Log JSON: уже есть в группе " + groupId);
+                }
+                added = true;
+                break;
             }
 
             if (!added) {

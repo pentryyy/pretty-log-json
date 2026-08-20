@@ -13,8 +13,6 @@
         <action id="FormatLogAction"
                 class="com.pentryyy.prettylogjson.actions.FormatLogAction"
                 icon="/icons/formatIcon.svg"
-                text="Pretty Log JSON"
-                description="Форматирует логи в JSON"
         >
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <add-to-group group-id="ToolsMenu" anchor="last"/>
@@ -23,7 +21,7 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationInitializedListener implementation="com.pentryyy.prettylogjson.utils.PluginInitializer"/>
+        <applicationInitializedListener implementation="com.pentryyy.prettylogjson.init.PluginInitializer"/>
     </extensions>
 
     <resource-bundle>messages.MyMessageBundle</resource-bundle>

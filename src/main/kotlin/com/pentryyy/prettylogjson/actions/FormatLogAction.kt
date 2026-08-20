@@ -2,6 +2,7 @@ package com.pentryyy.prettylogjson.actions
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -13,6 +14,14 @@ import com.intellij.openapi.project.Project
 class FormatLogAction : AnAction() {
 
     private val gson = GsonBuilder().setPrettyPrinting().create()
+
+    override fun getActionUpdateThread(): ActionUpdateThread {
+        return ActionUpdateThread.EDT
+    }
+
+    override fun update(e: AnActionEvent) {
+        e.presentation.text = "Pretty Log JSON"
+    }
 
     override fun actionPerformed(e: AnActionEvent) {
         val editor: Editor = e.getData(CommonDataKeys.EDITOR) ?: return

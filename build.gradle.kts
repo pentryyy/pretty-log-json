@@ -26,6 +26,13 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
+sourceSets {
+    main {
+        java.srcDirs("src/main/java")
+        kotlin.srcDirs("src/main/kotlin")
+    }
+}
+
 intellijPlatform {
     pluginConfiguration {
         ideaVersion {
