@@ -20,9 +20,5 @@
         </action>
     </actions>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationInitializedListener implementation="com.pentryyy.prettylogjson.init.PluginInitializer"/>
-    </extensions>
-
     <resource-bundle>messages.MyMessageBundle</resource-bundle>
 </idea-plugin>
