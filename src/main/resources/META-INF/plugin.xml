@@ -7,12 +7,24 @@
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
 
     <actions>
-        <action id="FormatLogAction" class="com.pentryyy.prettylogjson.actions.FormatLogAction">
+        <action id="FormatLogAction"
+                class="com.pentryyy.prettylogjson.actions.FormatLogAction"
+                icon="/icons/formatIcon.svg"
+                text="Pretty Log JSON"
+                description="Форматирует логи в JSON"
+        >
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift p"/> <!-- Cmd + Shift + P на Mac OS -->
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift p"/>
         </action>
     </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationInitializedListener implementation="com.pentryyy.prettylogjson.utils.PluginInitializer"/>
+    </extensions>
+
     <resource-bundle>messages.MyMessageBundle</resource-bundle>
 </idea-plugin>
