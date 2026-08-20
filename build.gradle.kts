@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.pentryyy"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ dependencies {
 intellijPlatform {
     pluginConfiguration {
         ideaVersion {
-            sinceBuild = "252.25557"
+            sinceBuild = "233"
         }
         changeNotes = "Initial version"
     }
